@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel DilsBot</title>
+  <script>
+    async function executarComando(codigo) {
+      const res = await fetch(`/executar/${codigo}`);
+      const data = await res.json();
+      document.getElementById('resultado').innerText = data.mensagem;
+    }
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center">
+  <h1 class="text-4xl font-bold mb-6">🤖 Painel DilsBot</h1>
+  <div class="grid grid-cols-1 gap-4">
+    <button onclick="executarComando(1)" class="bg-blue-600 px-4 py-2 rounded">1. Libera o foguete</button>
+    <button onclick="executarComando(2)" class="bg-blue-600 px-4 py-2 rounded">2. Chama o servidor Deployer</button>
+    <button onclick="executarComando(3)" class="bg-blue-600 px-4 py-2 rounded">3. Subir o DilsBot na nuvem</button>
+    <button onclick="executarComando(4)" class="bg-blue-600 px-4 py-2 rounded">4. Escalar o N8n</button>
+    <button onclick="executarComando(5)" class="bg-blue-600 px-4 py-2 rounded">5. Conexão VULTR</button>
+    <button onclick="executarComando(6)" class="bg-blue-600 px-4 py-2 rounded">6. Dia D da Nuvem</button>
+  </div>
+  <div id="resultado" class="mt-8 text-green-400 text-xl font-bold"></div>
+</body>
+</html>
