@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Painel DilsBot</title>
+  <link rel="stylesheet" href="/static/style.css">
+
   <script>
     async function executarComando(codigo) {
       const res = await fetch(`/executar/${codigo}`);
@@ -24,4 +26,4 @@
   </div>
   <div id="resultado" class="mt-8 text-green-400 text-xl font-bold"></div>
 </body>
-</html>
+

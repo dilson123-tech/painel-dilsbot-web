@@ -1,15 +1,24 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from app.comandos import executar_comando
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 import os
 
 app = FastAPI()
-print("🧠 FastAPI rodando no diretório:", os.getcwd())  # debug
 
-templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/", response_class=HTMLResponse)
-async def painel(request: Request):
-    print("✅ Rota '/' acessada")  # debug
-    return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/")
+def get_painel():
+    return FileResponse("static/index.html")
+
+@app.post("/comando/{codigo}")
+def executar_comando(codigo: str):
+    comandos = {
+        "foguete": "🚀 Foguete liberado com sucesso!",
+        "deployer": "🛠️ Deployer ativado!",
+        "nuvem": "☁️ Subida para a nuvem iniciada!",
+        "n8n": "📡 N8n escalado com sucesso!",
+        "vultr": "🔗 Conexão com VULTR estabelecida!",
+        "diaD": "🎯 Operação Dia D da Nuvem executada!"
+    }
+    return {"mensagem": comandos.get(codigo, "❌ Código não reconhecido")}

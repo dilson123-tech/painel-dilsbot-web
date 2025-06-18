@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel DilsBot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>🤖 Painel DilsBot</h1>
+  <p>Interface conectada com FastAPI!</p>
+
+  <div id="comandos">
+    <button onclick="executarComando('foguete')">🚀 Libera o foguete</button>
+    <button onclick="executarComando('deployer')">🛠️ Chamar o Deployer</button>
+    <button onclick="executarComando('nuvem')">☁️ Subir pra Nuvem</button>
+    <button onclick="executarComando('n8n')">📡 Escalar N8n</button>
+    <button onclick="executarComando('vultr')">🔗 Conexão VULTR</button>
+    <button onclick="executarComando('diaD')">🎯 Dia D da Nuvem</button>
+  </div>
+
+  <h3>📜 LOG DE COMANDOS:</h3>
+  <div id="resposta" style="margin-top:10px; font-weight:bold; color:green;"></div>
+
+  <script>
+    function executarComando(comando) {
+      fetch(`/comando/${comando}`, {
+        method: 'POST'
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("resposta").innerText = "⚡ " + data.mensagem;
+      })
+      .catch(error => {
+        document.getElementById("resposta").innerText = "❌ Erro ao executar comando.";
+      });
+    }
+  </script>
+</body>
+</html>
